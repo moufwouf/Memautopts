@@ -1,1 +1,1 @@
-# Memautopts
+# Memrise_auto_points
