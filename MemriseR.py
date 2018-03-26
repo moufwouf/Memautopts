@@ -3,6 +3,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import winsound
+import os
 
 
 opt = webdriver.ChromeOptions()
@@ -34,11 +35,22 @@ def reponse():
     return False
 
 
+if not os.path.isfile('identif.txt'):
+    email = input('Email : ')
+    mdp = input('MDP : ')
+    identif = open('identif.txt','w+')
+    identif.write(email+'¤'+mdp)
+    iedntif.close()
+
+
+
+identif = open('identif.txt').readlines()[0]
+email,mdp = identif.split('¤')
 
 
 driver.get('https://www.memrise.com/login/')
-driver.find_elements_by_xpath('//*[@id="login"]/div[4]/input')[0].send_keys(input('Email : '))
-driver.find_elements_by_xpath('//*[@id="login"]/div[5]/input')[0].send_keys(input('MDP : '))
+driver.find_elements_by_xpath('//*[@id="login"]/div[4]/input')[0].send_keys(email)
+driver.find_elements_by_xpath('//*[@id="login"]/div[5]/input')[0].send_keys(mdp)
 driver.find_elements_by_xpath('//*[@id="login"]/input[3]')[0].click()
 driver.get('https://www.memrise.com/course/1082981/lmw-chaptal-english/garden/speed_review/')
 
